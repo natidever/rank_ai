@@ -28,18 +28,31 @@ export const getWebLinks=()=>{
        if (i >=500){
         return 
        }
-        console.log("Links are ",links[i].href)
+        // console.log("Links are ",links[i].href)
     }
     
     return links
     
 }
 
-export const getHeadings=()=>{
+export const getWebHeadings=()=>{
     let heading = document.querySelectorAll('h1,h2,h3,h4,h5,h6')
       heading.forEach(headings=>{ 
 console.log(headings.tagName,headings.textContent)
       })
+
+      return heading
    
-    
+
 }
+
+export const getCanonicalURL=()=>{
+    let canonicalURL = document.querySelector("link[rel='canonical']")as HTMLLinkElement
+    let url=canonicalURL?.href
+
+console.log("URL",url)
+    return canonicalURL
+
+}
+
+
