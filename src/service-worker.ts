@@ -1,17 +1,25 @@
 
-let seoanalysis={}
+let seoanalysis:Record<number,any>={}
+
 chrome.runtime.onMessage.addListener((req,sender,sendResponse)=>{
-    // console.log
+     
+
+   const tabId = sender.tab?.id;
+   
     if(req.type === "SEND_SEO_ANALYSIS_TO_BACKGROUND"){
-        console.log("data",req)
-        sendResponse({status:true,response:"background_service_accepted"})
-        seoanalysis=req.content
-         
-        sendResponse({status:true,content:`background_accepted this ${req.content}`})
+        if(tabId !== undefined){
+            console.log("data",req)
+            sendResponse({status:true,response:"background_service_accepted"})
+            seoanalysis[tabId]=req.content
+             
+            sendResponse({status:true,content:`background_accepted this ${req.content}`})
+
+        }
+
 
     }
-    if(req.type ==="GET_SEO"){
-        sendResponse({status:true,content:seoanalysis})
+    if(req.type ==="GET_SEO"&& typeof req.tabID){
+        sendResponse({status:true,content:seoanalysis[req.tabID]})
     }
     
 })
