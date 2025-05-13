@@ -12,10 +12,14 @@ console.log("title",title)
 return title
 }
 
-export const getWebDescription=():MetaTagTypes =>{
+export const getWebDescription=():MetaTagTypes |string=>{
     let description = document.querySelector('meta[name="description"]')?.getAttribute('content')
-    console.log("desc",description)
+    if(description){
+        console.log("desc",description)
     return description
+
+    }
+  return "Missing"
     
 }
 
@@ -52,12 +56,22 @@ console.log(headings.tagName,headings.textContent)
 }
 
 export const getCanonicalURL=()=>{
+
     let canonicalURL = document.querySelector("link[rel='canonical']")as HTMLLinkElement
-    let url=canonicalURL?.href
+    
 
-console.log("URL",url)
-    return canonicalURL
+    if(canonicalURL){
+      let url=canonicalURL?.href
+      return url
+      
+    }
 
+    return "missing"
+
+}
+export const getURL=()=>{
+   let url = document.URL
+   return url
 }
 
 // STATIC SEO ANALYSIS WIHOUT AI INTEGRATION
@@ -93,20 +107,20 @@ export const getWebDescriptionRecommendation = (description:string,title:string)
 
     if(description.length >50 ||description.length<60 &&  description.includes(title)){
        
-        return  new DescriptionRecommendation(`${title.length } character`,100,'green');
+        return  new DescriptionRecommendation(`${description.length } characters`,100,'green');
          
   
       }else if (description.length >60 ||description.length<80){
-         return  new DescriptionRecommendation(`${title.length } character`,60,"red");
+         return  new DescriptionRecommendation(`${description.length } characters`,60,"red");
   
       }else if (description.length>80){
-         return  new DescriptionRecommendation(`${title.length } character`,50,'red');
+         return  new DescriptionRecommendation(`${description.length } characters`,50,'red');
   
       }
       else if (description ===null||description ===undefined ||description ===''){
-        return 'there is no description'
+        return  new DescriptionRecommendation(`0 character`,0,'red');
       }else {
-         return 'there is no description'
+         return  new DescriptionRecommendation(`0 character`,0,'red');
   
   
       }

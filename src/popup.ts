@@ -32,6 +32,19 @@ document.addEventListener('DOMContentLoaded',()=>{
                     // description length 
                     const description_length  = document.querySelector('.badge-description') !
                     description_length.textContent = response.content.seo_analysis.desctiption_analysis.recommendation
+                    // URL
+                    const url = document.querySelector('.info-value.url') !
+                    url.textContent = response.content.seoObject.webURL
+                    // 
+                    const canonicalURL =document.querySelector('.info-value.canonical')!
+                    canonicalURL.textContent = response.content.seoObject.canonicalURL
+
+
+
+
+
+
+                 
             
                     // 
             
